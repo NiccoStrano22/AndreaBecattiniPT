@@ -1,0 +1,35 @@
+<h1 class="page-header">
+    EFFETTUA L'ACCESSO
+</h1>
+<div class="col-md-12">
+    <div class="row" id="homerow">
+        <div class="panel-group">
+            <div class="panel panel-primary" style="background-color:#eeeeee;border: 1px solid #eeeeee;box-shadow: 10px 10px 5px #888888;">
+                <div class="panel-body">
+                    <div class="text-left col-md-6" style="border-right: 1px solid grey;">
+                        <img class="img-circle" alt="Log-In" width="200" height="170" src="images/log.png" /> <br />
+                        <img class="img" alt="Log-In" width="450" height="90" src="myIMG/logo1.png" />
+                    </div>
+                    <div class=" col-md-6">
+                        <form class="form-signin">
+                            <label> Email</label>
+                            <input style="text-align:center" type="text" class="form-control" ng-model="loginname" autocomplete="off"  />
+                            <br />
+                            <label>Password</label>
+                            <input style="text-align:center" type="password" class="form-control" ng-model="loginpwd"/>
+                            <div style="text-align: center;"><a href="#/recupera">Forgot your password?</a> | <a href="#/signup">Sign Up</a></div><br />
+                            <div class="text-right">
+                                <button type="button" ng-click="login()" class="btn btn-primary">
+                                <i class="glyphicon glyphicon-log-in"></i> Log-In
+                            </button>
+                                <button type="button" ng-click="reset()" class="btn btn-danger">
+                                <i class="glyphicon glyphicon-erase"></i> Reset
+                            </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

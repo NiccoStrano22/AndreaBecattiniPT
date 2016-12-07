@@ -1,0 +1,89 @@
+<img style="width:100px;height:100px;" ng-if="!ok" src="images/caricamento.gif" />
+<div ng-if="ok">
+    <h1 class="page-header">
+        {{nome | uppercase}} <small style="font-size: 16px">[{{d | date:"dd/MM/yyyy" }}]</small>
+        <div class="pull-right">
+        	<button ng-if="authenticatedA" type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-refresh"></i></button>
+            <button ng-if="authenticatedA" type="button" ng-click="Conferma()" class="btn btn-danger"><i class="glyphicon glyphicon-remove"></i></button>
+        </div>
+    </h1>
+    <ul class="breadcrumb">
+        <li><span class="divider">Torna alla sezione: </span><a href="#/video">Video</a> </li>
+    </ul>
+    <div class="row">
+        <div class="col-md-8">
+            <video src="{{path}}" controls preload width="640" height="360"></video>
+        </div>
+        <div class="col-md-4">
+            <h1>DESCRIZIONE VIDEO</h1>
+            <p>{{desc}}</p>
+        </div>
+    </div>
+
+
+    <hr>
+
+    <div class="row">
+        <div class="col-md-7">
+            <div>
+                <h3>COMMENTI VIDEO</h3>
+                <p ng-if="comm.length==0">Ancora nessun commento su questo articolo</p>
+                <br />
+                <div  ng-if="comm.length>0">
+                    <div class="media" dir-paginate="x in comm | itemsPerPage:5">
+                        <div class="media-left media-top">
+                          <img ng-src="{{x.Immagine}}" class="media-object" style="width:80px">
+                        </div>
+                        <div class="media-body">
+                          <h4 class="media-heading">{{x.Nome}} {{x.Cognome}} <small><i>{{x.Data | date:"dd/MM/yyyy"}} alle {{x.Ora}}</i></small></h4> 
+                          <p>{{x.Descrizione}}</p>
+                        </div>
+                        <hr>
+                    </div>
+                     <div class="text-center">
+                        <dir-pagination-controls></dir-pagination-controls>
+                    </div>
+                </div>
+                <br />
+                <div class="well" ng-if="authenticated" style="width:650px;height:400px;">
+                    <h3><i class="glyphicon glyphicon-comment"></i> LASCIA UN COMMENTO A QUESTO VIDEO</h3>
+                    <br />
+                    <form role="form">
+                        <div class="form-group">
+                            <label>Commento</label>
+                            <textarea class="form-control" style="resize: none;" ng-model="d2" rows="5" max="2"></textarea>
+                        </div>
+                        <button type="button" ng-click="Ncommento(d2)" class="btn btn-primary">Commenta <i class="glyphicon glyphicon-comment"></i> </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center">AGGIORNA VIDEO<br />
+                    <small>Compila le seguenti informazioni per aggiornare i dati del video.</small>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-signin">
+                    <label>Nome Video</label>
+                    <input name="NomeEvento" ng-model="n" maxlength="30" type="text" class="form-control" required autocomplete="off">
+                    <br />
+                    <label>Descrizione</label>
+                    <textarea style="resize: none;" ng-model="desc1" class="form-control" required rows="7" max="2"></textarea>
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" class="btn btn-info" ng-click="Update()" data-dismiss="modal"><i class="glyphicon glyphicon-refresh"></i> Aggiorna</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>

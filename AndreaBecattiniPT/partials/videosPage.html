@@ -1,0 +1,93 @@
+<h1 class="page-header">
+    SEZIONE VIDEO
+    <div class="pull-right"><button ng-if="authenticatedA" type="button" data-toggle="modal" data-target="#myModal" class="btn btn-danger"><i class="glyphicon glyphicon-plus"></i></button></div>
+</h1>
+<img style="width:100px;height:100px;" ng-if="!ok" src="images/caricamento.gif" />
+<div ng-if="ok" class="row">
+    <div style="margin-top: 2%;" class="col-md-3 img-portfolio" dir-paginate="x in video | itemsPerPage:8">
+        Titolo del video: <a class="text-center" href="#/detailsVideo/{{x.idVideo}}">{{x.Titolo | uppercase}}</a>
+        <video src="{{x.Percorso}}" controls preload width="300" height="200"></video>
+    </div>
+    <div ng-if="video.length == 0" class="text-center" style="font-size: 20px;">Non ci sono video pubblicati. </div>
+</div>
+<div class="text-center">
+    <dir-pagination-controls></dir-pagination-controls>
+</div>
+
+<hr>
+
+<!-- Call to Action Well -->
+<div class="row">
+    <div class="col-lg-12">
+        <div class="alert alert-info text-center">
+            <i class="glyphicon glyphicon-asterisk"></i> Cliccando sul nome del video sarà possibile visionarne i dettagli
+        </div>
+    </div>
+    <!-- /.col-lg-12 -->
+</div>
+<!-- /.row -->
+
+<!-- Content Row -->
+<div class="row">
+    <div class="col-md-4">
+        <h2>Video</h2>
+        <p>
+            Questa è la mia playlist di video che potete consultare in modo tale che possiate commentare e dire la vostra opinione.<br /> Tutto questo al fine di mantenervi sempre aggiornati su quanto sto facendo.
+        </p>
+    </div>
+    <!-- /.col-md-4 -->
+    <div class="col-md-4">
+        
+    </div>
+    <!-- /.col-md-4 -->
+    <div class="col-md-4">
+        <h2>Dettagli</h2>
+        <p>
+            Cliccando su un video potrai vedere la descrizione e i vari commenti rilasciati dagli utenti.<br /> Effettuando il login potrai chiedere chiarimenti e sarò lieto di rispondere.
+        </p>
+    </div>
+
+</div>
+
+
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center">NUOVO VIDEO<br />
+                    <small>Compila le seguenti informazioni per caricare un video.</small>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-danger text-center">
+                    <i class="glyphicon glyphicon-warning-sign"></i> Il caricamento di un video richiede tempo.
+                </div>
+                <form class="form-signin">
+                    <label>Nome Video</label>
+                    <input name="NomeEvento" ng-model="n" maxlength="30" type="text" class="form-control" required autocomplete="off">
+                    <br />
+                    <label>Descrizione</label>
+                    <textarea style="resize: none;" ng-model="desc" class="form-control" required rows="7" max="2"></textarea>
+                    <br />
+                    <img ng-src="{{nomeFile2}}" width="100" height="100" class="img-responsive img-rounded" />
+                    <br />
+                    <span ng-hide="progressbarvisible==true" class="fileinput-button btn btn-success">
+                							    <span>Carica un tuo video</span>
+                    <input ngf-select ng-model="imgfile2" ng-model-rejected="rejFiles2" ngf-change="uploadAdd(rejFiles2,imgfile2)" ngf-multiple="false" accept=".mp3,.mp4" ngf-accept="'.mp3,.mp4'" ngf-max-size="209763263772452152" ngf-allow-dir="false" />
+                    </span>
+                    <br />
+                    <span ng-hide="progressbarvisible==true">File Caricato: {{nomeFile2}}</span>
+                    <br />
+                    <div id="progressbar" ng-show="progressbarvisible==true" class="progress">
+                        <div class="progress-bar progress-bar-primary"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" name="Aggiungi" class="btn btn-primary" ng-click="aggiungi(n,desc,nomeFile2)" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i> Aggiungi</button>
+                <button type="button" name="Pulisci" class="btn btn-danger" ng-click="resetAdd()"><i class="glyphicon glyphicon-remove"></i> Pulisci</button>
+            </div>
+        </div>
+    </div>
+</div>

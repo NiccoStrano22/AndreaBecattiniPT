@@ -1,0 +1,151 @@
+<script>
+    $(function() {
+        $("#datepicker34").datetimepicker({
+            autoclose: 1,
+            startView: 2,
+            minView: 2,
+            todayBtn: 1,
+            todayHighlight: 1,
+            maxView: 3,
+            format: "yyyy-mm-dd"
+        });
+    });
+</script>
+<h1 class="page-header">
+    SEZIONE ARTICOLI
+    <div class="pull-right"><button ng-if="authenticatedA" type="button" data-toggle="modal" data-target="#myModal8" class="btn btn-danger"><i class="glyphicon glyphicon-plus"></i></button></div>
+</h1>
+<div class="row">
+    <div class="container">
+        <div class="col-md-8">
+            <div ng-if="vedi" class="alert" style="box-shadow: 10px 10px 5px #888888;background-color:white;border: 1.5px solid black">
+                <h3 class="modal-title" style="text-align:center;color:black">AGGIORNA INFORMAZIONI<br />
+                    <small style="color:black">Modifica le seguenti informazioni per aggiornare l'articolo.</small>
+                </h3>
+
+                <div class="modal-body">
+                <div class="alert alert-danger">
+                    	<strong><i class="glyphicon glyphicon-warning-sign"></i> ATTENZIONE</strong><br />
+                        Caricare foto che hanno un nome come: <i>andrea.jpg / Andrea.png</i> e <b>NON</b> foto con un 
+                        nome fatto di numeri come: <i>12123321513.jpg</i>
+                    </div>
+                    <form class="form-signin">
+                        <label style="color:black">Titolo</label>
+                        <input ng-model="nome" type="text" class="form-control" autocomplete="off">
+                        <br />
+                        <input type="hidden" ng-model="dp" />
+                        <input type="hidden" ng-model="id" />
+                        <label style="color:black">Descrizione</label>
+                        <textarea style="resize: none;" ng-model="descr" class="form-control" rows="7" max="2"></textarea>
+                        <br />
+                        <img ng-src="{{nomeFile}}" ng-if="nomeFile!=null" width="100" height="100" class="img-responsive img-rounded" />
+                        <br />
+                        <span ng-hide="progressbarvisible==true" class="fileinput-button btn btn-success">
+                                                            			<span>Modifica la tua immagine</span>
+                        <input ngf-select ng-model="imgfile" ng-model-rejected="rejFiles" ngf-change="upload(rejFiles,imgfile)" ngf-multiple="false" accept=".gif, .jpg, .jpeg, .tif, .tiff, .png, .pdf" ngf-accept="'.gif,.jpg,.jpeg,.tif,.tiff,.png,.pdf'" ngf-max-size="2097152"
+                            ngf-allow-dir="false" />
+                        </span>
+                        <br />
+                        <span style="color:black" ng-hide="progressbarvisible==true">File Caricato: {{nomeFile}}</span>
+                        <br />
+                        <div id="progressbar" ng-show="progressbarvisible==true" class="progress">
+                            <div class="progress-bar progress-bar-primary"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer" style="text-align:center">
+                    <button type="button" class="btn btn-primary" ng-click="aggiorna(id,nome,descr,nomeFile)" data-dismiss="modal"><i class="glyphicon glyphicon-refresh"></i> Aggiorna</button>
+                    <button type="button" class="btn btn-info" ng-click="reset()"><i class="glyphicon glyphicon-erase"></i> Reset</button>
+                    <button type="button" class="btn btn-danger" ng-click="ChangeView()"><i class="glyphicon glyphicon-remove"></i> Chiudi</button>
+                </div>
+            </div>
+            <img style="width:100px;height:100px;" ng-if="!ok" src="images/caricamento.gif" />
+            <div ng-if="ok" dir-paginate="p in articoli | filter:sel:strict | filter:sel1:strict | filter:sel2:strict | itemsPerPage:4">
+                <div>
+                    <h2>
+                        <a href="#/details/{{p.idArticolo}}">{{p.Titolo | uppercase}}</a>
+                        <div style="font-size: 20px;" ng-if="authenticatedA" class="pull-right">
+                            <b class="text-success" ng-click="dettagli(p.idArticolo)"><b class="glyphicon glyphicon-refresh"></b></b>
+                            <b class="text-danger" ng-click="Conferma(p.idArticolo)"><b  class="glyphicon glyphicon-remove" ></b></b>
+                        </div>
+                        <br />
+                        <small style="color:black;font-size:14px"><span class="glyphicon glyphicon-time"></span> Pubblicato il <span>{{p.DataPubblicazione | date:"dd/MM/yyyy" }}</span></small>
+
+                    </h2>
+
+                    <a href="#/details/{{p.idArticolo}}"><img class="img-responsive img-rounded" ng-src="{{p.Immagine}}" width="300" height="100" /></a>
+                    <br />
+                    <span>{{p.Descrizione | limitTo:200}}....</span>
+                    <a ng-click="go(p.idArticolo)">Leggi tutto l'articolo</a>
+                    <hr />
+                </div>
+            </div>
+            <div class="text-center">
+                <dir-pagination-controls></dir-pagination-controls>
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="well">
+                <h4><i class="glyphicon glyphicon-search"></i> RICERCA ARTICOLO </h4>
+                <br />
+                <div class="input-group">
+                    <input type="text" placeholder="Ricerca articolo specifico.." ng-model="sel2.Titolo" class="form-control">
+                    <br />
+                    <br />
+                    <div class='input-group date'>
+                        <input style="background-color: white;" placeholder="Articolo in data.." type='text' autocomplete="off" id="datepicker34" ng-model="sel1.DataPubblicazione" class="form-control" readonly/>
+                        <span ng-click="sel1.DataPubblicazione = ''" class="input-group-addon"><span class="glyphicon glyphicon-remove" ></span></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="myModal8" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center">NUOVO ARTICOLO<br />
+                    <small>Compila le seguenti informazioni per aggiungere un articolo.</small>
+                </h3>
+            </div>
+            <div class="modal-body">
+            <div class="alert alert-danger">
+                    	<strong><i class="glyphicon glyphicon-warning-sign"></i> ATTENZIONE</strong><br />
+                        Caricare foto che hanno un nome come: <i>andrea.jpg / Andrea.png</i> e <b>NON</b> foto con un 
+                        nome fatto di numeri come: <i>12123321513.jpg</i>
+                    </div>
+                <form class="form-signin">
+                    <label>Titolo</label>
+                    <input name="NomeEvento" ng-model="n" maxlength="30" type="text" class="form-control" required autocomplete="off">
+                    <br />
+                    <label>Descrizione</label>
+                    <textarea style="resize: none;" ng-model="desc" class="form-control" required rows="7" max="2"></textarea>
+                    <br />
+                    <img ng-src="{{nomeFile2}}" ng-if="nomeFile2!=null" width="100" height="100" class="img-responsive img-rounded" />
+                    <br />
+                    <span ng-hide="progressbarvisible==true" class="fileinput-button btn btn-success">
+                							    <span>Carica la tua immagine</span>
+                    <input ngf-select ng-model="imgfile2" ng-model-rejected="rejFiles2" ngf-change="uploadAdd(rejFiles2,imgfile2)" ngf-multiple="false" accept=".gif, .jpg, .jpeg, .tif, .tiff, .png, .pdf" ngf-accept="'.gif,.jpg,.jpeg,.tif,.tiff,.png,.pdf'" ngf-max-size="2097152"
+                        ngf-allow-dir="false" />
+                    </span>
+                    <br />
+                    <span ng-hide="progressbarvisible==true">File Caricato: {{nomeFile2}}</span>
+                    <br />
+                    <div id="progressbar" ng-show="progressbarvisible==true" class="progress">
+                        <div class="progress-bar progress-bar-primary"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" name="Aggiungi" class="btn btn-primary" ng-click="aggiungi(n,desc,nomeFile2)" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i> Aggiungi</button>
+                <button type="button" name="Pulisci" class="btn btn-danger" ng-click="resetAdd()"><i class="glyphicon glyphicon-erase"></i> Reset</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,56 @@
+<img style="width:100px;height:100px;" ng-if="!ok" src="images/caricamento.gif" />
+<div ng-if="ok">
+    <h1 class="page-header">
+        <span style="color:red;">{{nome | uppercase}}</span> <small style="font-size: 16px">[{{d | date:"dd/MM/yyyy" }}]</small>
+    </h1>
+    <div class="row">
+    </div>
+    <div ng-if="ok" class="col-md-3">
+        <p class="lead">Altri articoli</p>
+        <div class="list-group">
+            <a ng-repeat="p in articoli" ng-click="go(p.idArticolo)" class="list-group-item">
+                <h4 class="list-group-item-heading">{{p.Titolo | uppercase}}</h4>
+                <p style="font-size: 12px " class="list-group-item-text">{{p.Descrizione | limitTo:100}}</p>
+            </a>
+        </div>
+    </div>
+
+    <div ng-if="ok" class="col-md-9">
+        <div class="thumbnail">
+            <img class="img-responsive img-rounded" ng-src="{{path}}" alt="" width="600" height="200">
+            <div class="caption-full">
+                <br />
+                <p style="font-size: 17px;text-align: left">{{ desc }}</p>
+            </div>
+        </div>
+        <h3>COMMENTI ARTICOLO</h3>
+        <p ng-if="comm.length==0">Ancora nessun commento su questo articolo</p>
+        <br />
+        <div  ng-if="comm.length>0">
+          <div class="media" dir-paginate="x in comm | itemsPerPage:6">
+            <div class="media-left media-top">
+              <img ng-src="{{x.Immagine}}" class="media-object" style="width:80px">
+            </div>
+            <div class="media-body">
+              <h4 class="media-heading">{{x.Nome}} {{x.Cognome}} <small><i>{{x.Data | date:"dd/MM/yyyy"}} alle {{x.Ora}}</i></small></h4> 
+              <p>{{x.Descrizione}}</p>
+            </div>
+            <hr>
+          </div>
+          <div class="text-center">
+            <dir-pagination-controls></dir-pagination-controls>
+          </div>
+      </div>
+      <br />
+        <div class="well" ng-if="authenticated">
+            <h3><i class="glyphicon glyphicon-comment"></i> LASCIA UN COMMENTO A QUESTO ARTICOLO</h3>
+            <form role="form">
+                <div class="form-group">
+                    <label>Commento</label>
+                    <textarea class="form-control" style="resize: none;" ng-model="d2" rows="5" max="2"></textarea>
+                </div>
+                <button type="button" ng-click="Ncommento(d2)" class="btn btn-primary">Commenta <i class="glyphicon glyphicon-comment"></i> </button>
+            </form>
+        </div>
+    </div>
+</div>

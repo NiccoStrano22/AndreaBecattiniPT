@@ -1,0 +1,163 @@
+body{
+    font-size: 18px;   
+}
+
+table:hover {
+    cursor: pointer;
+}
+
+a:hover{
+    cursor: pointer;
+}
+
+#datepicker2:hover {
+    cursor: pointer;
+}
+
+#datepicker1:hover {
+    cursor: pointer;
+}
+
+#datepicker:hover {
+    cursor: pointer;
+}
+
+#datepicker7:hover {
+    cursor: pointer;
+}
+
+#datepicker8:hover {
+    cursor: pointer;
+}
+
+#datepicker9:hover {
+    cursor: pointer;
+}
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+    font-weight: normal;
+}
+
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.r{
+    color:black;
+    min-height:20px;
+    padding:19px;
+    margin-bottom:20px;
+    background-color: white;
+    border:1px solid #2c3e50;
+    box-shadow: 10px 10px 5px #dedede;
+}
+
+i:hover{
+    cursor: pointer;
+}
+
+#datepicker34:hover{
+    cursor: pointer;
+}
+
+div > span:hover{
+    cursor: pointer;
+}
+
+b:hover{
+	cursor: pointer;
+ }
+ 
+ .business-header {
+    height: 400px;
+    background: url('../images/squat.jpg') center center no-repeat scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+
+.img-center {
+    margin: 0 auto;
+}
+
+.bg-4 { 
+      background-color: white; /* Black Gray */
+      color: #fff;
+  }
+  .container-fluid {
+      padding-top: 70px;
+      padding-bottom: 70px;
+      margin-bottom: 0%;
+  }
+  
+  #lista:hover{
+    cursor: pointer;
+}
+
+#lista > li:hover{
+    background-color: #f5f5f5;
+}
+
+
+.chip {
+    display: inline-block;
+    padding: 0 25px;
+    height: 50px;
+    font-size: 16px;
+    line-height: 50px;
+    border-radius: 25px;
+    background-color: #f1f1f1;
+}
+
+.chip img {
+    float: left;
+    margin: 0 10px 0 -25px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 40%;
+    border-radius: 5px;
+    position: relative;
+    margin: auto;
+    text-align: center;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+img {
+    border-radius: 5px 5px 0 0;
+}
+
+.containerIMG {
+    padding: 2px 16px;
+}

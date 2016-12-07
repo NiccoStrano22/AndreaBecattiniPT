@@ -1,0 +1,53 @@
+<h1 class="page-header">
+    EFFETTUA LA REGISTRAZIONE
+</h1>
+<div class="col-md-12">
+    <div class="row" id="homerow">
+        <div class="panel-group">
+            <div class="panel panel-primary" style="background-color:#eeeeee;border: 1px solid #eeeeee;box-shadow: 10px 10px 5px #888888;">
+                <div class="panel-body">
+                    <div class="text-left col-md-6" style="border-right: 1px solid grey;">
+                        <img class="img-circle" alt="Log-In" width="200" height="170" src="images/su.png" />
+                        <br />
+                        <img class="img img-rounded " alt="Log-In" width="300" height="450" src="myIMG/AK.jpg" />
+                    </div>
+                    <div class=" col-md-6">
+                        <form class="form-signin">
+                            <label>Nome</label>
+                            <input name="locale" id="nome" type="text" class="form-control" autocomplete="off" maxlength="30" ng-model="nome">
+                            <br />
+                            <label>Cognome</label>
+                            <input name="civico" type="text" id="civ" class="form-control" autocomplete="off" maxlength="30" ng-model="civico">
+                            <br />
+                            <label>Email</label>
+                            <input type='text' autocomplete="off" ng-model="e" class="form-control" />
+                            <br />
+                            <label>Password</label>
+                            <input type='password' autocomplete="off" ng-model="p" class="form-control" />
+                            <br />
+                            <span ng-hide="progressbarvisible==true" class="fileinput-button btn btn-success">
+							    <span>Carica la tua immagine</span>
+                            <input ngf-select ng-model="imgfile" ng-model-rejected="rejFiles" ngf-change="upload()" ngf-multiple="false" accept=".gif, .jpg, .jpeg, .tif, .tiff, .png, .pdf" ngf-accept="'.gif,.jpg,.jpeg,.tif,.tiff,.png,.pdf'" ngf-max-size="2097152" ngf-allow-dir="false"
+                            />
+                            </span>
+                            <br />
+                            <span ng-hide="progressbarvisible==true">File Caricato: {{nomeFile}}</span>
+                            <br />
+                            <div id="progressbar" ng-show="progressbarvisible==true" class="progress">
+                                <div class="progress-bar progress-bar-primary"></div>
+                            </div>
+                            <br />
+                            <div class="alert alert-danger">
+                                <strong><i class="glyphicon glyphicon-warning-sign"></i> ATTENZIONE</strong><br />
+                                Caricare foto che hanno un nome come: <i>andrea.jpg / Andrea.png</i> e <b>NON</b> foto con un 
+                                nome fatto di numeri come: <i>12123321513.jpg</i>. Grazie.
+                            </div>
+                            <button type="button" ng-click="signup()" class="btn btn-primary btn-block"><i class="glyphicon glyphicon-edit"></i> Registrati</button>
+                            <button type="button" ng-click="reset()" class="btn btn-danger btn-block"><i class="glyphicon glyphicon-erase"></i> Pulisci Campi</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

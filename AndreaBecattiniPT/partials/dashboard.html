@@ -1,0 +1,80 @@
+<h1 class="page-header"> PROFILO UTENTE </h1>
+<img style="width:100px;height:100px;" ng-if="!ok" src="images/caricamento.gif" />
+<div ng-if="ok" class="card">
+    <img ng-src="{{nomeFile}}" alt="Avatar" style="width:100%">
+    <div class="containerIMG">
+        <h2><b>{{ username }} </b> <img src="myIMG/admin.jpg" width="30" height="30" alt="Admin" ng-if="AD" /></h2>
+        <h4><i style="color:black;" class="glyphicon glyphicon-envelope"></i> (Email in uso: {{useremail}})</h4>
+    </div>
+</div>
+<br />
+<div ng-if="ok"  class="text-center">
+    <button class="btn btn-danger" ng-click="logout()"><i class="glyphicon glyphicon-off"></i> Logout</button>
+    <button class="btn btn-warning" ng-if="!authenticatedA" data-toggle="modal" data-target="#myModal"><i class="glyphicon glyphicon-remove"></i> Elimina Account</button>
+    <button class="btn btn-success" data-toggle="modal" data-target="#myModal2"><i class="glyphicon glyphicon-refresh"></i> Aggiorna Informazioni</button>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align:center">ELIMINA ACCOUNT</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <i style="font-size: 40px" class="glyphicon glyphicon-warning-sign"></i>
+                <p>Sicuro di voler cancellare l'account? Una volta confermata l'operazione sarà impossibile recuperarlo.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" ng-click="DeleteAccount()" data-dismiss="modal">Elimina</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModal2" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align:center">AGGIORNA INFORMAZIONI</h4>
+            </div>
+            <div class="modal-body">
+                <form id="registrazione" class="form-signin">
+                    <label>Nome</label>
+                    <input name="locale" id="nome" type="text" class="form-control" autocomplete="off" maxlength="30" ng-model="utente" readonly>
+                    <br />
+                    <label>Cognome</label>
+                    <input name="civico" type="text" id="civ" class="form-control" autocomplete="off" maxlength="30" ng-model="cog" readonly>
+                    <br />
+                    <label>Email</label>
+                    <input type='text' autocomplete="off" ng-model="em" class="form-control" readonly/>
+                    <br />
+                    <label>Password</label>
+                    <input type='password' autocomplete="off" ng-model="pw" class="form-control" />
+                    <br />
+                    <img ng-src="{{nomeFile}}" ng-if="nomeFile!=null" width="100" height="100" class="img-responsive img-rounded" />
+                    <img src="myIMG/account.jpg" ng-if="nomeFile==null" width="100" height="100" class="img-responsive img-rounded" />
+                    <br />
+                    <span ng-hide="progressbarvisible==true" class="fileinput-button btn btn-success">
+				    <span>modifica la tua immagine</span>
+                    <input ngf-select ng-model="imgfile" ng-model-rejected="rejFiles" ngf-change="upload()" ngf-multiple="false" accept=".gif, .jpg, .jpeg, .tif, .tiff, .png, .pdf" ngf-accept="'.gif,.jpg,.jpeg,.tif,.tiff,.png,.pdf'" ngf-max-size="2097152" ngf-allow-dir="false"
+                    />
+                    </span>
+                    <button ng-hide="progressbarvisible==true" ng-click="nomeFile=null" class="btn btn-danger">Elimina file</button>
+                    <br />
+                    <span ng-hide="progressbarvisible==true">File Caricato: {{nomeFile}}</span>
+                    <br />
+                    <div id="progressbar" ng-show="progressbarvisible==true" class="progress">
+                        <div class="progress-bar progress-bar-primary"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" ng-click="update()" class="btn btn-primary" data-dismiss="modal"><i class="glyphicon glyphicon-refresh"></i> Aggiorna</button>
+                <button type="button" ng-click="Information()" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

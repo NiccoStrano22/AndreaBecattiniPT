@@ -1,0 +1,165 @@
+<script>
+    $(function() {
+        $("#datepicker32").datetimepicker({
+            autoclose: 1,
+            startView: 2,
+            minView: 2,
+            todayBtn: 1,
+            todayHighlight: 1,
+            maxView: 3,
+            format: "yyyy-mm-dd"
+        });
+    });
+    
+    
+</script>
+<div class="container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                CHI SONO
+                <div class="pull-right">
+                    <button ng-if="authenticatedA" type="button" data-toggle="modal" data-target="#myModalI" class="btn btn-danger">Certificazione <i class="glyphicon glyphicon-plus"></i></button>
+                    <button ng-if="authenticatedA" type="button" data-toggle="modal" data-target="#myModalX" class="btn btn-info">Corso <i class="glyphicon glyphicon-plus"></i></button>
+                    <button ng-if="authenticatedA" type="button" data-toggle="modal" data-target="#myModalY" class="btn btn-success">Esperienza <i class="glyphicon glyphicon-plus"></i></button>
+                </div>
+            </h1>
+        </div>
+    </div>
+    <img style="width:100px;height:100px;" ng-if="!ok" src="images/caricamento.gif" />
+    <div ng-if="ok" class="row">
+        <div class="col-md-12">
+            <h2 style="text-align:left;">ESPERIENZE PROFESSIONALI</h2>
+            <p style="font-size:21px;">
+            	<br />
+                <ul id="lista" class="list-group col-lg-6">
+                   <li ng-repeat="y in esp" class="list-group-item">{{y.Nome}} <span style="color:red" ng-if="authenticatedA" ng-click="ConfermaEsp(y.idEsperienza)" class="pull-right glyphicon glyphicon-remove"></span></li>
+                </ul>
+            </p>
+            <br />
+            <div class="col-lg-12">
+                <h2 style="text-align:left;">CERTIFICAZIONI OTTENUTE</h2>
+                <p style="font-size:21px;">
+                    <br />
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr style="background-color:#FFFACD">
+                                <th>Periodo</th>
+                                <th>Corso</th>
+                                <th>Luogo</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="p in certifications | itemsPerPage:7">
+                                <td><i>{{p.DataInParole}} {{p.Year}} </i></td>
+                                <td><b>{{p.Corso}}</b></td>
+                                <td>{{p.Luogo}}</td>
+                                <td>
+                                	<i style="color: red;" ng-if="!DataConf(p.Data) && !authenticatedA">In corso</i>
+                                	<i style="color: green;" ng-if="!authenticatedA && DataConf(p.Data)" class="glyphicon glyphicon-ok"></i>
+                                	<button type="button" class="btn btn-danger" ng-if="authenticatedA" ng-click="ConfermaCertificazione(p.idCertificazione)" > <span class="glyphicon glyphicon-trash"></span></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <dir-pagination-controls></dir-pagination-controls>
+                    </div>
+                    <br />
+                    <h2 style="text-align:left;">CORSI SEGUITI</h2>
+                    <br />
+                    <ul id="lista" class="list-group col-lg-7">
+                        <li ng-repeat="x in courses" class="list-group-item">{{x.Nome}} <span style="color:red" ng-if="authenticatedA" ng-click="ConfermaCorso(x.idCorso)" class="pull-right glyphicon glyphicon-remove"></span></li>
+                    </ul>
+            </div>
+            <br />
+            <div class="col-lg-12">
+                <h2 style="text-align:left;">COME CONTATTARMI</h2>
+                <br />
+                <p style="font-size:21px;text-align:left;">
+                    Cellulare: 347-9412126<br /> Email: andreabecattinipt@gmail.com<br /> Trovami anche su: <a href="https://www.facebook.com/BecattiniPt/?ref=ts&fref=ts" target="_blank">Facebook</a> e <a target="_blank" href="https://www.instagram.com/andreabecattinipt/">Instagram</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+<div id="myModalI" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center">NUOVA CERTIFICAZIONE<br />
+                    <small>Compila le seguenti informazioni per aggiungere una certificazione.</small>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-signin">
+                    <label>Nome Corso</label>
+                    <input ng-model="c" type="text" class="form-control" required autocomplete="off">
+                    <br />
+                    <label>Luogo</label>
+                    <input ng-model="l" type="text" class="form-control" required autocomplete="off">
+                    <br />
+                    <label>Data</label>
+                    <div class='input-group date'>
+                        <input type='text' ng-model="d" autocomplete="off" class="form-control" id="datepicker32" />
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar" ></span></span>
+                    </div>
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" class="btn btn-primary" ng-click="InsertNewCertification()" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i> Aggiungi</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModalX" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center">NUOVO CORSO<br />
+                    <small>Compila le seguenti informazioni per aggiungere un corso.</small>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-signin">
+                    <label>Nome Corso</label>
+                    <input ng-model="n" type="text" class="form-control" required autocomplete="off">
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" class="btn btn-primary" ng-click="InsertNewCourse()" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i> Aggiungi</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="myModalY" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h3 class="modal-title" style="text-align:center">NUOVA ESPERIENZA<br />
+                    <small>Compila le seguenti informazioni per aggiungere una nuova esperienza.</small>
+                </h3>
+            </div>
+            <div class="modal-body">
+                <form class="form-signin">
+                    <label>Nome Esperienza</label>
+                    <input ng-model="n2" type="text" class="form-control" required autocomplete="off">
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" class="btn btn-primary" ng-click="InsertNewEsp()" data-dismiss="modal"><i class="glyphicon glyphicon-plus"></i> Aggiungi</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="n2=null"><i class="glyphicon glyphicon-remove"></i> Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>

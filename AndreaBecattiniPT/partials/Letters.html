@@ -1,0 +1,79 @@
+<img style="width:100px;height:100px;" ng-if="!ok" src="images/caricamento.gif" />
+<div ng-if="ok"  class="container">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                UTENTI REGISTRATI
+            </h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-lg-12">
+                <p style="font-size:21px;">
+                	Ciao Andrea, ecco tutti gli utenti registrati al tuo sito.<br />
+                    Cliccando sull'icona con l'immagine dell'email potrai inviare una mail a quell'utente.<br />
+                    Cliccando invece sull'icona rossa con il cestino potrai eliminare un utente.
+                    <br />
+                    <br />
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr style="background-color:#d9edf7">
+                                <th>Immagine</th>
+                                <th>Nome</th>
+                                <th>Data di Registrazione</th>
+                                <th>Email</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody >
+                            <tr dir-paginate="p in users | itemsPerPage:9">
+                                <td><img class="img-circle img-responsive" width="50" height="50" ng-src="{{p.Image}}"></td>
+                                <td><b>{{p.Nome}} {{p.Cognome}}</b></td>
+                                <td style="color: grey;"><i>{{p.Registrazione | date:"dd/MM/yyyy"}}</i></td>
+                                <td>{{p.Email}}</td>
+                                 <td style="text-align: center"><button type="button" class="btn btn-success" ng-click="SetEmail(p.Email)" data-toggle="modal" data-target="#myModal"> <span class="glyphicon glyphicon-envelope"></span></button></td>
+                                <td style="text-align: center"><button type="button" class="btn btn-danger" ng-click="Conferma(p.idUtente)" > <span class="glyphicon glyphicon-trash"></span></button></td>
+                               
+                            </tr>
+                       </tbody>
+                   </table>
+                     <div class="text-center">
+                        <dir-pagination-controls></dir-pagination-controls>
+                    </div>
+               </p>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align:center">INVIA UNA EMAIL</h4>
+            </div>
+            <div class="modal-body">
+            	<div ng-if="send==1" class="alert alert-success"><i class="glyphicon glyphicon-ok"></i> Email inviata correttamente.</div>
+                <div ng-if="send==0" class="alert alert-danger"><i class="glyphicon glyphicon-remove"></i> Email non inviata.</div>
+                <form id="registrazione" class="form-signin">
+                    <label>Destinatario</label>
+                    <input readonly type="text" class="form-control" ng-model="email">
+                    <br />
+                    <label>Titolo</label>
+                    <input type="text" class="form-control" autocomplete="off" maxlength="30" ng-model="header">
+                    <br />
+                    <label>Messaggio</label>
+                     <textarea style="resize: none;" ng-model="msg" class="form-control" rows="7" max="2"></textarea>
+                    <br />
+                </form>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button type="button" ng-click="Send()" class="btn btn-primary"><i class="glyphicon glyphicon-envelope"></i> Invia</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Chiudi</button>
+            </div>
+        </div>
+    </div>
+</div>
